@@ -20,10 +20,14 @@ export default function MyRecords({ session }: Props) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const data = getWorkerRecords(session.name)
+  async function loadRecords() {
+    const data = await getWorkerRecords(session.name)
     setRecords(data)
     setLoading(false)
-  }, [session.name])
+  }
+
+  loadRecords()
+}, [session.name])
 
   const formatDate = (iso: string) =>
     new Date(iso).toLocaleString('ar-SA', {
